@@ -1,0 +1,142 @@
+use new;
+
+create table emp(
+emp_id int primary key,
+emp_name varchar(50) ,
+dept varchar(50) ,
+city varchar(50) ,
+salary int ,
+hire_date date,
+manager_id int DEFAULT NULL );
+
+insert into emp values(1,"aarav shah","IT","PUNE",72000,'2021-03-15'," " ),(2,"sneha rao","HR","MUMBAI",48000,'2022-07-01',1),(3,"karan mehta","Sales","DELHI",55000,'2023-01-10',1),
+(4,"priya nair","IT","PUNE",64000,'2020-11-23',1),(5,"ramesh iyer","Finance","MUMBAI",59000,'2019-05-30'," " ),(6,"anita desai","Sales","PUNE",41000,'2024-02-12',3);
+
+DROP TABLE EMP;
+
+ALTER TABLE EMP MODIFY MANAGER_ID VARCHAR(50);
+
+SELECT * FROM EMP;
+
+----- Q1
+SELECT EMP_NAME,SALARY FROM EMP
+WHERE DEPT="IT";
+
+----- Q2 
+SELECT * FROM EMP 
+WHERE SALARY > 50000 AND CITY="PUNE";
+
+------ Q3 
+SELECT * FROM EMP 
+WHERE HIRE_DATE IN (2022-01-01,2023-12-31);
+
+------ Q4
+SELECT * FROM EMP
+WHERE MANAGER_ID IS NULL;
+
+------- Q5
+SELECT * FROM EMP 
+WHERE EMP_NAME regexp "^A";
+
+-------- Q6 
+SELECT * FROM EMP 
+WHERE EMP_NAME regexp"$SH";
+
+-------- Q7 
+SELECT * FROM EMP
+WHERE EMP_NAME LIKE "%AN%";
+
+-------- Q8
+SELECT * FROM EMP
+WHERE EMP_NAME LIKE"_a___%";
+
+-------- Q.9
+SELECT DEPT,COUNT(*) FROM EMP 
+group by DEPT;
+
+------- Q10
+SELECT CITY,avg(SALARY) FROM EMP 
+GROUP BY CITY;
+
+------- Q11
+SELECT DEPT,SUM(SALARY) AS TOTAL_SALARY,
+max(SALARY) AS HIGHEST_SALARY FROM EMP
+GROUP BY DEPT;
+
+-------- Q12
+SELECT DEPT,CITY,COUNT(*) FROM EMP
+WHERE SALARY > 30000 
+GROUP BY DEPT,CITY;
+
+-------- Q13 
+SELECT DEPT,COUNT(*) FROM EMP
+group by DEPT 
+HAVING COUNT(*) >= 3;
+
+------- Q14
+SELECT CITY,AVG(SALARY) FROM EMP 
+GROUP BY CITY
+HAVING avg(SALARY) > 60000;
+
+-------- Q15 
+SELECT DEPT,SUM(SALARY) FROM EMP 
+GROUP BY DEPT
+HAVING SUM(SALARY) BETWEEN 20000 AND 50000;
+
+-------- Q16 
+SELECT DEPT ,AVG(SALARY) FROM  EMP 
+WHERE DEPT <> 'HR'
+GROUP BY DEPT 
+HAVING avg(SALARY) > 45000
+ORDER BY AVG(SALARY) DESC;
+
+--------- Q17 
+SELECT * FROM EMP 
+ORDER BY SALARY DESC 
+LIMIT 5;
+
+-------- Q18
+SELECT * FROM EMP 
+ORDER BY HIRE_DATE DESC 
+LIMIT 3;
+
+------- Q19 
+SELECT * FROM EMP 
+ORDER BY SALARY DESC
+LIMIT 5 OFFSET 5;
+
+------- Q20
+SELECT distinct SALARY
+FROM EMP 
+ORDER BY SALARY DESC 
+LIMIT 1 OFFSET 2; 
+
+------- Q21 
+select city, count(*) 
+from emp 
+where EMP_NAME like "s%"
+group by city 
+order by count(*) desc
+limit 3;
+
+------- Q22
+SELECT *
+FROM emp
+WHERE city = 'Pune'
+ORDER BY emp_name ASC
+LIMIT 10 ;
+
+--------- Q23
+SELECT DEPT,avg(SALARY),
+COUNT(*) FROM EMP 
+WHERE HIRE_DATE >= '2022-01-01'
+GROUP BY DEPT
+having COUNT(*) >= 2
+ORDER BY avg(SALARY) DESC 
+LIMIT 1 OFFSET 2;
+
+----------- Q24
+SELECT CITY,EMP_NAME,COUNT(*) FROM EMP 
+WHERE EMP_NAME LIKE "%AR%"
+group by CITY,EMP_NAME 
+LIMIT 3;
